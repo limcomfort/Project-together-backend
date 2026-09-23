@@ -1,0 +1,41 @@
+{
+  "name": "workspace",
+  "version": "0.0.1",
+  "description": "Аналог социальной сети Twitter* (Запрещена в РФ) на стеке MERN",
+  "type": "module",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "tsx src/app.ts",
+    "dev:watch": "tsx watch src/app.ts"
+  },
+  "keywords": [
+    "node",
+    "mongodb",
+    "express",
+    "react",
+    "social"
+  ],
+  "author": "Blake",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.25",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^20.19.43",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.13",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.24.4"
+  }
+}
