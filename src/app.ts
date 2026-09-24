@@ -4,6 +4,7 @@ import cors from "cors";
 import postsRoutes from "./routes/posts.router.js";
 import usersRoutes from "./routes/users.router.js";
 import { notFound } from "./controllers.js";
+import { connectDB } from "./db.js";
 
 dotenv.config();
 
@@ -18,6 +19,14 @@ app.use("/api/users", usersRoutes);
 
 app.use(notFound);
 
-app.listen(port, () => {
-  console.log(`Сервер запущен на http://localhost:${port}`);
+const start = async () => {
+  await connectDB();
+  app.listen(port, () => {
+    console.log(`Сервер запущен на http://localhost:${port}`);
+  });
+};
+
+start().catch((error) => {
+  console.error("Не удалось запустить сервер:", error instanceof Error ? error.message : error);
+  process.exit(1);
 });

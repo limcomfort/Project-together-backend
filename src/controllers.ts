@@ -6,15 +6,13 @@ import {
   deletePost as removePost,
 } from "./models.js";
 
-export function getAllPosts(req: Request, res: Response) {
-  res.json({
-    success: true,
-    data: { posts: getPosts() },
-  });
+export async function getAllPosts(_req: Request, res: Response) {
+  const posts = await getPosts();
+  res.json({ success: true, data: { posts } });
 }
 
-export function getPostById(req: Request, res: Response) {
-  const post = findPostById(req.params.id);
+export async function getPostById(req: Request, res: Response) {
+  const post = await findPostById(req.params.id);
 
   if (!post) {
     res.status(404).json({ success: false, message: "Пост не найден" });
@@ -24,7 +22,7 @@ export function getPostById(req: Request, res: Response) {
   res.json({ success: true, data: { post } });
 }
 
-export function createPost(req: Request, res: Response) {
+export async function createPost(req: Request, res: Response) {
   const { content, author } = req.body;
 
   if (!content || !author) {
@@ -32,12 +30,12 @@ export function createPost(req: Request, res: Response) {
     return;
   }
 
-  const newPost = addPost(content, author);
+  const newPost = await addPost(content, author);
   res.status(201).json({ success: true, data: { post: newPost } });
 }
 
-export function deletePost(req: Request, res: Response) {
-  const ok = removePost(req.params.id);
+export async function deletePost(req: Request, res: Response) {
+  const ok = await removePost(req.params.id);
 
   if (!ok) {
     res.status(404).json({ success: false, message: "Пост не найден" });
