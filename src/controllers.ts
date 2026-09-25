@@ -4,6 +4,7 @@ import {
   getPostById as findPostById,
   createPost as addPost,
   deletePost as removePost,
+  getCommentsByPostId,
 } from "./models.js";
 
 export async function getAllPosts(_req: Request, res: Response) {
@@ -43,6 +44,16 @@ export async function deletePost(req: Request, res: Response) {
   }
 
   res.json({ success: true });
+}
+
+export async function getPostComments(req: Request, res: Response) {
+  const post = await findPostById(req.params.id);
+  if (!post) {
+    res.status(404).json({ success: false, message: "Пост не найден" });
+    return;
+  }
+  const comments = await getCommentsByPostId(req.params.id);
+  res.json({ success: true, data: { comments } });
 }
 
 export function notFound(req: Request, res: Response) {

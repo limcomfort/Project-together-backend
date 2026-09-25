@@ -6,10 +6,11 @@ import { posts as seedPosts, comments as seedComments, users as seedUsers } from
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/together";
 
 async function seedIfEmpty(): Promise<void> {
-  if ((await PostModel.countDocuments()) === 0) await PostModel.insertMany(seedPosts);
-  if ((await CommentModel.countDocuments()) === 0) await CommentModel.insertMany(seedComments);
-  if ((await UserModel.countDocuments()) === 0) await UserModel.insertMany(seedUsers);
-  console.log("Начальные данные загружены в MongoDB");
+  const seeded: string[] = [];
+  if ((await PostModel.countDocuments()) === 0) { await PostModel.insertMany(seedPosts); seeded.push("посты"); }
+  if ((await CommentModel.countDocuments()) === 0) { await CommentModel.insertMany(seedComments); seeded.push("комментарии"); }
+  if ((await UserModel.countDocuments()) === 0) { await UserModel.insertMany(seedUsers); seeded.push("пользователи"); }
+  if (seeded.length) console.log(`Начальные данные загружены в MongoDB: ${seeded.join(", ")}`);
 }
 
 export async function connectDB(): Promise<void> {
