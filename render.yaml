@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: together-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/posts
+    envVars:
+      - key: NODE_VERSION
+        value: 20.19.0
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false   # вставьте строку подключения MongoDB Atlas в дашборде Render
