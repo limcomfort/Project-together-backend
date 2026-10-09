@@ -4,6 +4,7 @@ import cors from "cors";
 import postsRoutes from "./routes/posts.router.js";
 import usersRoutes from "./routes/users.router.js";
 import { notFound } from "./controllers.js";
+import authRoutes from "./routes/auth.router.js";
 import { connectDB } from "./db.js";
 
 dotenv.config();
@@ -14,6 +15,7 @@ const port = Number(process.env.PORT) || 5000;
 app.use(express.json());
 app.use(cors());
 
+app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/users", usersRoutes);
 
