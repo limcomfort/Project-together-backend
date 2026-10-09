@@ -1,13 +1,11 @@
+import "dotenv/config"; // первым: .env должен загрузиться до модулей, читающих переменные
 import express, { Express } from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import postsRoutes from "./routes/posts.router.js";
 import usersRoutes from "./routes/users.router.js";
 import { notFound } from "./controllers.js";
 import authRoutes from "./routes/auth.router.js";
 import { connectDB } from "./db.js";
-
-dotenv.config();
 
 const app: Express = express();
 const port = Number(process.env.PORT) || 5000;
